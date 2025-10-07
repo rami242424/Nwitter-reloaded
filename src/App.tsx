@@ -47,11 +47,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const init = async() => {
     // wait for firebase(while firebase is checking whether login or not & who is user)
-    //setIsLoading(false);
-    setTimeout(() => setIsLoading(false), 2000);
+    //setTimeout(() => setIsLoading(false), 2000);
+    setLoading(false);
   }
   useEffect(() => {
     init();

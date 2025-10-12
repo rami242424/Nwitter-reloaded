@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components"
 
 const Wrapper = styled.div``;
@@ -8,6 +9,8 @@ const Input = styled.input``;
 
 
 export default function CreateAccount(){
+    const [isLoading, setLoading] = useState(false);
+    
     return (
         <Wrapper>
             <Form>

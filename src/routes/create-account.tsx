@@ -61,6 +61,7 @@ export default function CreateAccount(){
         e.preventDefault();
         //console.log(name, email, password);
         try{
+            await createUserWithEmailAndPassword
         } catch (e) {
         } finally {
             setLoading(false);
@@ -68,7 +69,7 @@ export default function CreateAccount(){
     }
     return (
         <Wrapper>
-            <Title>Log into X</Title>
+            <Title>Join X</Title>
             <Form onSubmit={onSubmit}>
                 <Input onChange={onChange} name="name" value={name} placeholder="Name" type="text" required/>
                 <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required/>

@@ -1,5 +1,7 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import styled from "styled-components"
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
     height: 100%;
@@ -57,12 +59,16 @@ export default function CreateAccount(){
             setPassword(value)
         }
     }
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //console.log(name, email, password);
+        if(isLoading || name === "" || email === "" || password === "") return;
         try{
-            await createUserWithEmailAndPassword
+            const credentials = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(credentials.user, "credentials.user");
+            await 
         } catch (e) {
+            //
         } finally {
             setLoading(false);
         }

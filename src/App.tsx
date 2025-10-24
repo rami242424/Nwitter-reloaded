@@ -9,6 +9,7 @@ import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
+import ProtectedRoute from "./routes/protected-route";
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
     children: [
       {
         path:"",
-        element: <Home />,
+        element: <ProtectedRoute><Home /></ProtectedRoute>,
       },
       {
         path:"profile",
-        element: <Profile />,
+        element: <ProtectedRoute><Profile /></ProtectedRoute>,
       },
     ]
   },

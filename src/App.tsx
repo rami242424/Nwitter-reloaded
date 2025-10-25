@@ -26,15 +26,15 @@ const GlobalStyles = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path:"/",
-    element: <Layout />,
+    element: <ProtectedRoute><Layout /></ProtectedRoute>,
     children: [
       {
         path:"",
-        element: <ProtectedRoute><Home /></ProtectedRoute>,
+        element: <Home />,
       },
       {
         path:"profile",
-        element: <ProtectedRoute><Profile /></ProtectedRoute>,
+        element: <Profile />,
       },
     ]
   },

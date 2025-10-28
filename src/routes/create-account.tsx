@@ -77,8 +77,10 @@ export default function CreateAccount(){
             navigate("/");
         } catch (e) {
             if(e instanceof FirebaseError){
+                //console.log(e.code, e.message);
                 setError(e.message);
             }
+            
         } finally {
             setLoading(false);
         }

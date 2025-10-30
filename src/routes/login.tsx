@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
     height: 100%;
@@ -64,6 +66,7 @@ export default function Login(){
         if(isLoading || email === "" || password === "") return;
         try{
             setLoading(true);
+            await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
         } catch (e) {
             if(e instanceof FirebaseError){
@@ -81,7 +84,7 @@ export default function Login(){
             <Form onSubmit={onSubmit}>
                 <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required/>
                 <Input onChange={onChange} name="password" value={password} placeholder="Password" type="password" required/>
-                <Input type="submit" value={isLoading ? "Loading..." : "Create Account"} />
+                <Input type="submit" value={isLoading ? "Loading..." : "Log In"} />
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
         </Wrapper>

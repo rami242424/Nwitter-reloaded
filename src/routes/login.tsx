@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -46,6 +46,14 @@ const Error = styled.span`
     color: tomato;
 `;
 
+const Switcher = styled.span`
+    margin-top: 20px;
+    a {
+        color: #1d9bf0;
+    }
+`;
+
+
 export default function Login(){
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(false);
@@ -87,6 +95,9 @@ export default function Login(){
                 <Input type="submit" value={isLoading ? "Loading..." : "Log In"} />
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
+            <Switcher>
+                Don't have an account? <Link to="/create-account">Create one &rarr</Link>
+            </Switcher>
         </Wrapper>
     )
 }

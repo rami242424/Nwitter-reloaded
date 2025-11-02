@@ -103,7 +103,7 @@ export default function CreateAccount(){
             </Form>
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
-                Already have an account? <Link to="/login">Create one &rarr</Link>
+                Already have an account? <Link to="/login">Create one &rarr;</Link>
             </Switcher>
         </Wrapper>
     )

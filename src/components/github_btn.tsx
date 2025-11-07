@@ -1,4 +1,4 @@
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
@@ -26,7 +26,7 @@ export default function GithubBtn(){
     const onClick = async() => {
         try{
             const provider = new GithubAuthProvider();
-            await signInWithPopup(auth, provider);
+            await signInWithRedirect(auth, provider);
         } catch (error) {
             console.log(error, "error!!");
         }

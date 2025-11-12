@@ -12,6 +12,9 @@ import { auth } from "./firebase";
 import ProtectedRoute from "./routes/protected-route";
 
 const GlobalStyles = createGlobalStyle`
+  ::-webkit-scrollbar {
+    display:none;
+  }
   ${reset};
   * {
     box-sizing: border-box;

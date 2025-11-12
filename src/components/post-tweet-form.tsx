@@ -64,6 +64,12 @@ export default function PostTweetForm(){
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
         if(files && files.length === 1){
+            const overSize = 1024 * 1024;
+            if(files[0].size > overSize){
+                alert("1MB 이하의 이미지만 업로드해주세요.");
+                e.target.value = "";
+                return;
+            }
             setFile(files[0]);
         }
     }
@@ -91,6 +97,8 @@ export default function PostTweetForm(){
                     photo: url,
                 });
             }
+            setTweet("");
+            setFile(null);
         } catch(e) {
             console.log(e);
         } finally {

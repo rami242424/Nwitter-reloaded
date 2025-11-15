@@ -38,7 +38,7 @@ export default function Timeline(){
         //     }
         // });
         await onSnapshot(twtsQuery, (snapshot) => {
-            snapshot.docs.map((doc) => {
+            const tweets = snapshot.docs.map((doc) => {
             const { photo, tweet, userId, username, createAt } = doc.data();
             return {
                 photo,
@@ -49,8 +49,8 @@ export default function Timeline(){
                 id: doc.id,
             };
         });
-        });
         setTweet(tweets);
+    });
     }
     useEffect(() => {
         fetchTweets();

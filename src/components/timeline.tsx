@@ -24,39 +24,59 @@ const Wrapper = styled.div`
 
 export default function Timeline(){
     const [tweets, setTweet] = useState<ITweet[]>([]);
-    const fetchTweets = async() => {
+    // const fetchTweets = async() => {
+    //     const twtsQuery = query(
+    //         collection(db, "tweets"),
+    //         orderBy("createAt","desc")
+    //     );
+    //     // const spanshot = await getDocs(twtsQuery);
+    //     // const tweets = spanshot.docs.map((doc) => {
+    //     //     const { photo, tweet, userId, username, createAt } = doc.data();
+    //     //     return {
+    //     //         photo,
+    //     //         tweet,
+    //     //         userId,
+    //     //         username,
+    //     //         createAt,
+    //     //         id: doc.id,
+    //     //     }
+    //     // });
+    //     const unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
+    //         const tweets = snapshot.docs.map((doc) => {
+    //         const { photo, tweet, userId, username, createAt } = doc.data();
+    //         return {
+    //             photo,
+    //             tweet,
+    //             userId,
+    //             username,
+    //             createAt,
+    //             id: doc.id,
+    //         };
+    //     });
+    //     setTweet(tweets);
+    // });
+    // }
+    useEffect(() => {
+        const fetchTweets = async() => {
         const twtsQuery = query(
             collection(db, "tweets"),
             orderBy("createAt","desc")
         );
-        // const spanshot = await getDocs(twtsQuery);
-        // const tweets = spanshot.docs.map((doc) => {
-        //     const { photo, tweet, userId, username, createAt } = doc.data();
-        //     return {
-        //         photo,
-        //         tweet,
-        //         userId,
-        //         username,
-        //         createAt,
-        //         id: doc.id,
-        //     }
-        // });
         const unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
-            const tweets = snapshot.docs.map((doc) => {
-            const { photo, tweet, userId, username, createAt } = doc.data();
-            return {
-                photo,
-                tweet,
-                userId,
-                username,
-                createAt,
-                id: doc.id,
-            };
+                const tweets = snapshot.docs.map((doc) => {
+                const { photo, tweet, userId, username, createAt } = doc.data();
+                return {
+                    photo,
+                    tweet,
+                    userId,
+                    username,
+                    createAt,
+                    id: doc.id,
+                };
+            });
+            setTweet(tweets);
         });
-        setTweet(tweets);
-    });
-    }
-    useEffect(() => {
+        }
         fetchTweets();
     }, []);
     return (

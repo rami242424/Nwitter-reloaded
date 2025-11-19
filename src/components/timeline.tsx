@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { db } from "../firebase";
 import Tweet from "./tweet";
 import { snapshot } from "node:test";
+import type { Unsubscribe } from "firebase/auth";
 
 
 
@@ -24,45 +25,14 @@ const Wrapper = styled.div`
 
 export default function Timeline(){
     const [tweets, setTweet] = useState<ITweet[]>([]);
-    // const fetchTweets = async() => {
-    //     const twtsQuery = query(
-    //         collection(db, "tweets"),
-    //         orderBy("createAt","desc")
-    //     );
-    //     // const spanshot = await getDocs(twtsQuery);
-    //     // const tweets = spanshot.docs.map((doc) => {
-    //     //     const { photo, tweet, userId, username, createAt } = doc.data();
-    //     //     return {
-    //     //         photo,
-    //     //         tweet,
-    //     //         userId,
-    //     //         username,
-    //     //         createAt,
-    //     //         id: doc.id,
-    //     //     }
-    //     // });
-    //     const unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
-    //         const tweets = snapshot.docs.map((doc) => {
-    //         const { photo, tweet, userId, username, createAt } = doc.data();
-    //         return {
-    //             photo,
-    //             tweet,
-    //             userId,
-    //             username,
-    //             createAt,
-    //             id: doc.id,
-    //         };
-    //     });
-    //     setTweet(tweets);
-    // });
-    // }
     useEffect(() => {
+        let unsubscribe : Unsubscribe | null = null;
         const fetchTweets = async() => {
         const twtsQuery = query(
             collection(db, "tweets"),
             orderBy("createAt","desc")
         );
-        const unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
+        unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
                 const tweets = snapshot.docs.map((doc) => {
                 const { photo, tweet, userId, username, createAt } = doc.data();
                 return {
@@ -78,6 +48,9 @@ export default function Timeline(){
         });
         }
         fetchTweets();
+        return () => {
+            unsubscribe && unsubscribe();
+        }
     }, []);
     return (
         <Wrapper>

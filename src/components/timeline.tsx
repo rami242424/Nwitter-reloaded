@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
 import Tweet from "./tweet";
-import { snapshot } from "node:test";
 import type { Unsubscribe } from "firebase/auth";
 
 
@@ -31,7 +30,7 @@ export default function Timeline(){
         const twtsQuery = query(
             collection(db, "tweets"),
             orderBy("createAt","desc"),
-            limit(25)
+            limit(25),
         );
         unsubscribe = await onSnapshot(twtsQuery, (snapshot) => {
                 const tweets = snapshot.docs.map((doc) => {

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import type { ITweet } from "./timeline";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
     display: grid;
@@ -35,13 +36,15 @@ const DeleteBtn = styled.button`
     cursor: pointer;
 `;
 
-export default function Tweet({ username, photo, tweet} : ITweet){
+export default function Tweet({ username, photo, tweet, userId} : ITweet){
+    const user = auth.currentUser;
+
     return (
         <Wrapper>
             <Column>
                 <Username>{username}</Username>
                 <Payload>{tweet}</Payload>
-                <DeleteBtn>Delete</DeleteBtn>
+                {user?.uid === userId  ? <DeleteBtn>Delete</DeleteBtn> : ""}
             </Column>
             <Column>
                 {photo? (

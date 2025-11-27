@@ -46,6 +46,7 @@ export default function Profile(){
             const locationRef = ref(storage, `avatars/${user?.uid}`);
             const result = await uploadBytes(locationRef, file);
             const avatarUrl = await getDownloadURL(result.ref);
+            setAvatar(avatarUrl);
             await updateProfile(user, {
                 photoURL: avatarUrl,
             })

@@ -22,11 +22,15 @@ const AvatarUpload = styled.label`
         width: 50px;
     }
 `;
-const AvatarImg = styled.img``;
+const AvatarImg = styled.img`
+    width: 100%;
+`;
 const AvatarInput = styled.input`
     display: none;
 `;
-const Name = styled.span``;
+const Name = styled.span`
+    font-size: 22px;
+`;
 
 
 export default function Profile(){
@@ -34,7 +38,7 @@ export default function Profile(){
     const [avatar, setAvatar] = useState(user?.photoURL);
     return(
         <Wrapper>
-            <AvatarUpload>
+            <AvatarUpload htmlFor="avatar">
                 {avatar ? (
                     <AvatarImg src={avatar} />
                     ) : (
@@ -43,7 +47,7 @@ export default function Profile(){
                         </svg>
                     )}
             </AvatarUpload>
-            <AvatarInput type="file" accept="image/*" />
+            <AvatarInput id="avatar" type="file" accept="image/*" />
             <Name>
                 {user?.displayName ? user.displayName : "Anonymous"}
             </Name>

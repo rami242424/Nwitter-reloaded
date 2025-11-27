@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { auth } from "../firebase";
+import { auth, storage } from "../firebase";
 import { useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,10 +38,17 @@ const Name = styled.span`
 export default function Profile(){
     const user = auth.currentUser;
     const [avatar, setAvatar] = useState(user?.photoURL);
-    const onAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onAvatarChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
+        if(!user) return;
         if(files && files.length === 1){
             const file = files[0];
+            const locationRef = ref(storage, `avatars/${user?.uid}`);
+            const result = await uploadBytes(locationRef, file);
+            const avatarUrl = await getDownloadURL(result.ref);
+            await updateProfile(user, {
+                photoURL: avatarUrl,
+            })
         }
     }
     return(

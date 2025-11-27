@@ -1,5 +1,16 @@
+import { auth } from "../firebase"
+
 export default function Profile(){
+    const user = auth.currentUser;
     return(
-        <h1>Profile</h1>
+        <Wrapper>
+            <AwatarUpload>
+                <AvatarImg />
+            </AwatarUpload>
+            <AvatarInput type="file" accept="image/*" />
+            <Name>
+                {user?.displayName ? user.displayName : "Anonymous"}
+            </Name>
+        </Wrapper>
     )
 }
